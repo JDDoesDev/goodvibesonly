@@ -24,6 +24,7 @@ Copy the `vibecheck` folder to your Claude Code skills directory:
 ```bash
 cp -r vibecheck /path/to/your/skills/
 ```
+Claude Code skills live in `~/.claude/skills/` (global) or `.claude/skills/` (project-level).
 
 Then Claude Code will automatically use it when you say things like:
 - "check this for security issues"
