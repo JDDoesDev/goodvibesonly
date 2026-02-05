@@ -8,7 +8,7 @@
 ║                  ╚██████╔╝░░╚██╔╝░░╚█████╔╝                     ║
 ║                  ░╚═════╝░░░░╚═╝░░░░╚════╝░                     ║
 ║                                                                 ║
-║           🛡️  security scanner for vibe coders  🛡️               ║
+║           🛡️  security scanner for vibe coders  🛡️            ║
 ║                                                                 ║
 ╚═════════════════════════════════════════════════════════════════╝
 ```
@@ -50,13 +50,13 @@ Commit blocked. Fix critical issues or use --no-verify to bypass.
 ### Option 1: skills.sh (recommended)
 
 ```bash
-npx skills add jddoesdev/vibecheck
+npx skills add jddoesdev/goodvibesonly
 ```
 
 Or install globally:
 
 ```bash
-npx skills add jddoesdev/vibecheck --global
+npx skills add jddoesdev/goodvibesonly --global
 ```
 
 ### Option 2: npx
@@ -74,8 +74,8 @@ npm install -g goodvibesonly-cc
 ### Option 4: Manual
 
 ```bash
-git clone https://github.com/jddoesdev/vibecheck.git
-cd vibecheck
+git clone https://github.com/jddoesdev/goodvibesonly.git
+cd goodvibesonly
 node bin/install.js --global
 ```
 
