@@ -1,0 +1,25 @@
+{
+  "name": "goodvibesonly",
+  "version": "0.3.0",
+  "description": "Security scanner for vibe-coded projects. Automatically scans for hardcoded secrets, SQL injection, XSS, and other vulnerabilities before commits.",
+  "author": {
+    "name": "jddoesdev",
+    "url": "https://github.com/jddoesdev"
+  },
+  "homepage": "https://github.com/jddoesdev/goodvibesonly",
+  "repository": "https://github.com/jddoesdev/goodvibesonly",
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "scanner",
+    "vibe-coding",
+    "secrets",
+    "vulnerabilities",
+    "sql-injection",
+    "xss",
+    "claude-code"
+  ],
+  "commands": "./commands",
+  "skills": "./skills",
+  "hooks": "./hooks/hooks.json"
+}

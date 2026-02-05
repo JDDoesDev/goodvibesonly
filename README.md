@@ -47,23 +47,35 @@ Commit blocked. Fix critical issues or use --no-verify to bypass.
 
 ## Installation
 
-### Option 1: npx (recommended)
+### Option 1: skills.sh (recommended)
+
+```bash
+npx skills add jddoesdev/vibecheck
+```
+
+Or install globally:
+
+```bash
+npx skills add jddoesdev/vibecheck --global
+```
+
+### Option 2: npx
 
 ```bash
 npx goodvibesonly-cc
 ```
 
-### Option 2: npm global install
+### Option 3: npm global install
 
 ```bash
 npm install -g goodvibesonly-cc
 ```
 
-### Option 3: Manual
+### Option 4: Manual
 
 ```bash
-git clone https://github.com/YOURNAME/goodvibesonly.git
-cd goodvibesonly
+git clone https://github.com/jddoesdev/vibecheck.git
+cd vibecheck
 node bin/install.js --global
 ```
 
