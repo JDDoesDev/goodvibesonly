@@ -15,19 +15,21 @@
 
 # GoodVibesOnly
 
-**Security scanner for vibe-coded projects.** A Claude Code extension that automatically scans for vulnerabilities before you commit.
+**Security scanner for vibe-coded projects.** A Claude Code extension that automatically scans for vulnerabilities when Claude Code commits on your behalf.
 
 ## How It Works
 
-GoodVibesOnly uses Claude Code's hooks system to intercept git commands:
+GoodVibesOnly uses Claude Code's [hooks system](https://docs.anthropic.com/en/docs/claude-code/hooks) to intercept git commands **within Claude Code sessions**. It does not hook into git directly — it only triggers when Claude Code itself runs a Bash command.
 
-1. **Hooks into git commit/push** - Automatically runs before any `git commit` or `git push`
-2. **Scans changed files** - Checks for hardcoded secrets, injection vulnerabilities, XSS, and more
-3. **Blocks on critical issues** - Prevents commits with critical vulnerabilities (exit code 2)
+1. **Intercepts Claude Code's Bash calls** - A `PreToolUse` hook runs the scanner whenever Claude Code is about to execute a Bash command
+2. **Checks for git commit/push** - If the command is a `git commit` or `git push`, it scans staged files for hardcoded secrets, injection vulnerabilities, XSS, and more
+3. **Blocks on critical issues** - Prevents Claude Code from executing the commit by exiting with code 2
 4. **Allows warnings through** - High/medium issues are reported but don't block
 
+> **Note:** This only works when committing through Claude Code. Running `git commit` directly in your terminal will not trigger the scan. For terminal-level git hooks, consider a traditional pre-commit hook tool.
+
 ```
-You: git commit -m "add user api"
+You (in Claude Code): commit my changes
 
 🛡️  GoodVibesOnly Security Scan
 
@@ -42,7 +44,7 @@ You: git commit -m "add user api"
      db.query("SELECT * FROM users WHERE id = " + id)
 
 Found 2 critical, 0 high, 0 medium issues.
-Commit blocked. Fix critical issues or use --no-verify to bypass.
+Commit blocked — fix critical issues before committing.
 ```
 
 ## Installation
@@ -92,11 +94,11 @@ node bin/install.js --uninstall   # Remove GoodVibesOnly
 
 ### Automatic (via hooks)
 
-Just use git normally. GoodVibesOnly runs automatically:
+When working inside Claude Code, GoodVibesOnly runs automatically whenever Claude executes a git commit or push:
 
-```bash
-git commit -m "message"    # Scans before commit
-git push                   # Scans before push
+```
+You: commit my changes        # Scans before Claude runs git commit
+You: push to origin            # Scans before Claude runs git push
 ```
 
 ### Manual Scan
@@ -160,21 +162,23 @@ goodvibesonly/
 
 ## How It's Different
 
-- **Actually enforces** - Uses Claude Code hooks to block commits, not just advisory
+- **Actually enforces** - Uses Claude Code's PreToolUse hooks to block commits, not just advisory
 - **Real scanning** - Node.js script with regex patterns, not just instructions for Claude
-- **Zero config** - Installs hooks automatically
+- **Zero config** - Installs hooks automatically into Claude Code's settings
 - **Uninstall support** - Clean removal with `--uninstall`
 
 ## Technical Details
 
-GoodVibesOnly installs a `PreToolUse` hook that intercepts Bash commands. When it detects `git commit` or `git push`:
+GoodVibesOnly installs a `PreToolUse` hook in Claude Code's settings. This hook runs before every Bash tool call that Claude Code makes. When the scanner detects the command is a `git commit` or `git push`:
 
 1. Reads staged files via `git diff --cached --name-only`
 2. Scans each file against vulnerability patterns
 3. Outputs findings to stderr
-4. Exits with code 2 to block (critical issues) or 0 to allow
+4. Exits with code 2 to block Claude Code from running the command (critical issues) or 0 to allow it
 
-The hook is configured in `~/.claude/settings.json`:
+For non-git commands, the scanner exits immediately with code 0 (allow).
+
+The hook is configured in Claude Code's `settings.json`:
 
 ```json
 {
