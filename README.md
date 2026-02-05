@@ -35,13 +35,13 @@ Commit blocked. Fix critical issues or use --no-verify to bypass.
 ### Option 1: npx (recommended)
 
 ```bash
-npx vibecheck-cc
+npx goodvibesonly-cc
 ```
 
 ### Option 2: npm global install
 
 ```bash
-npm install -g vibecheck-cc
+npm install -g goodvibesonly-cc
 ```
 
 ### Option 3: Manual
