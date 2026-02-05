@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * VibeCheck Installer
+ * GoodVibesOnly Installer
  *
- * Installs VibeCheck as a Claude Code extension with:
- * - Slash command: /vibecheck
+ * Installs GoodVibesOnly as a Claude Code extension with:
+ * - Slash command: /goodvibesonly
  * - Auto-invoke skill for commit/push detection
  * - PreToolUse hook for automatic scanning before git commit/push
  */
@@ -69,12 +69,12 @@ function installHooks(targetDir, scanScriptPath) {
     settings.hooks.PreToolUse = [];
   }
 
-  // Check if vibecheck hook already exists
+  // Check if goodvibesonly hook already exists
   const existingHookIndex = settings.hooks.PreToolUse.findIndex(h =>
-    h.hooks?.some(inner => inner.command?.includes('vibecheck') || inner.command?.includes('scan.js'))
+    h.hooks?.some(inner => inner.command?.includes('goodvibesonly') || inner.command?.includes('scan.js'))
   );
 
-  const vibecheckHook = {
+  const goodvibesonlyHook = {
     matcher: 'Bash',
     hooks: [
       {
@@ -87,12 +87,12 @@ function installHooks(targetDir, scanScriptPath) {
 
   if (existingHookIndex >= 0) {
     // Update existing hook
-    settings.hooks.PreToolUse[existingHookIndex] = vibecheckHook;
-    console.log('Updated existing VibeCheck hook');
+    settings.hooks.PreToolUse[existingHookIndex] = goodvibesonlyHook;
+    console.log('Updated existing GoodVibesOnly hook');
   } else {
     // Add new hook
-    settings.hooks.PreToolUse.push(vibecheckHook);
-    console.log('Installed VibeCheck hook');
+    settings.hooks.PreToolUse.push(goodvibesonlyHook);
+    console.log('Installed GoodVibesOnly hook');
   }
 
   saveJson(settingsPath, settings);
@@ -106,8 +106,8 @@ function install(targetDir, skipHooks = false) {
 
   const commandsDest = path.join(targetDir, 'commands');
   const skillsDest = path.join(targetDir, 'skills');
-  const vibecheckDir = path.join(targetDir, 'vibecheck');
-  const scanScriptDest = path.join(vibecheckDir, 'scan.js');
+  const goodvibesonlyDir = path.join(targetDir, 'goodvibesonly');
+  const scanScriptDest = path.join(goodvibesonlyDir, 'scan.js');
 
   // Copy commands
   if (fs.existsSync(commandsSrc)) {
@@ -123,7 +123,7 @@ function install(targetDir, skipHooks = false) {
 
   // Copy scan script
   if (fs.existsSync(scanScriptSrc)) {
-    console.log(`Installing scanner to ${vibecheckDir}`);
+    console.log(`Installing scanner to ${goodvibesonlyDir}`);
     copyFile(scanScriptSrc, scanScriptDest);
   }
 
@@ -132,23 +132,23 @@ function install(targetDir, skipHooks = false) {
     installHooks(targetDir, scanScriptDest);
   }
 
-  console.log('\n✓ VibeCheck installed successfully!\n');
+  console.log('\n✓ GoodVibesOnly installed successfully!\n');
   console.log('Features:');
-  console.log('  • /vibecheck command for manual scans');
+  console.log('  • /goodvibesonly command for manual scans');
   console.log('  • Auto-scan before git commit/push (via hooks)');
   console.log('  • Blocks commits with critical vulnerabilities');
   console.log('');
   console.log('Usage:');
-  console.log('  /vibecheck              Manual security scan');
+  console.log('  /goodvibesonly              Manual security scan');
   console.log('  git commit -m "msg"     Auto-scans before commit');
   console.log('  git push                Auto-scans before push');
   console.log('');
 }
 
 function uninstall(targetDir) {
-  const commandPath = path.join(targetDir, 'commands', 'vibecheck.md');
-  const skillPath = path.join(targetDir, 'skills', 'vibecheck');
-  const vibecheckDir = path.join(targetDir, 'vibecheck');
+  const commandPath = path.join(targetDir, 'commands', 'goodvibesonly.md');
+  const skillPath = path.join(targetDir, 'skills', 'goodvibesonly');
+  const goodvibesonlyDir = path.join(targetDir, 'goodvibesonly');
   const settingsPath = path.join(targetDir, 'settings.json');
 
   let removed = false;
@@ -156,20 +156,20 @@ function uninstall(targetDir) {
   // Remove command
   if (fs.existsSync(commandPath)) {
     fs.unlinkSync(commandPath);
-    console.log('Removed /vibecheck command');
+    console.log('Removed /goodvibesonly command');
     removed = true;
   }
 
   // Remove skill
   if (fs.existsSync(skillPath)) {
     fs.rmSync(skillPath, { recursive: true });
-    console.log('Removed vibecheck skill');
+    console.log('Removed goodvibesonly skill');
     removed = true;
   }
 
   // Remove scanner
-  if (fs.existsSync(vibecheckDir)) {
-    fs.rmSync(vibecheckDir, { recursive: true });
+  if (fs.existsSync(goodvibesonlyDir)) {
+    fs.rmSync(goodvibesonlyDir, { recursive: true });
     console.log('Removed scanner');
     removed = true;
   }
@@ -180,7 +180,7 @@ function uninstall(targetDir) {
     if (settings.hooks?.PreToolUse) {
       const originalLength = settings.hooks.PreToolUse.length;
       settings.hooks.PreToolUse = settings.hooks.PreToolUse.filter(h =>
-        !h.hooks?.some(inner => inner.command?.includes('vibecheck') || inner.command?.includes('scan.js'))
+        !h.hooks?.some(inner => inner.command?.includes('goodvibesonly') || inner.command?.includes('scan.js'))
       );
       if (settings.hooks.PreToolUse.length < originalLength) {
         saveJson(settingsPath, settings);
@@ -191,9 +191,9 @@ function uninstall(targetDir) {
   }
 
   if (removed) {
-    console.log('\n✓ VibeCheck uninstalled successfully!\n');
+    console.log('\n✓ GoodVibesOnly uninstalled successfully!\n');
   } else {
-    console.log('VibeCheck was not installed in this location.\n');
+    console.log('GoodVibesOnly was not installed in this location.\n');
   }
 }
 
@@ -215,7 +215,7 @@ async function main() {
   const args = process.argv.slice(2);
 
   console.log('');
-  console.log('🛡️  VibeCheck Installer');
+  console.log('🛡️  GoodVibesOnly Installer');
   console.log('   Security scanner for vibe-coded projects');
   console.log('');
 
@@ -239,7 +239,7 @@ async function main() {
     targetDir = LOCAL_CLAUDE_DIR;
   } else {
     // Interactive mode
-    console.log('Where would you like to install VibeCheck?');
+    console.log('Where would you like to install GoodVibesOnly?');
     console.log('');
     console.log('  [g] Global (~/.claude/) - Available in all projects');
     console.log('  [l] Local (./.claude/)  - This project only');

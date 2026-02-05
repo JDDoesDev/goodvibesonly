@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * VibeCheck Scanner
+ * GoodVibesOnly Scanner
  *
  * Scans files for security vulnerabilities.
  * Used by Claude Code hooks to block commits with critical issues.
@@ -172,7 +172,7 @@ function formatFindings(findings) {
     bySeverity[f.severity].push(f);
   }
 
-  let output = '\n🛡️  VibeCheck Security Scan\n\n';
+  let output = '\n🛡️  GoodVibesOnly Security Scan\n\n';
 
   const total = findings.length;
   if (total === 0) {

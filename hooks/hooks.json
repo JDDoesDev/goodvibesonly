@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"{{VIBECHECK_PATH}}/bin/scan.js\"",
+            "command": "node \"{{GOODVIBESONLY_PATH}}/bin/scan.js\"",
             "timeout": 30
           }
         ]

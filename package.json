@@ -1,10 +1,10 @@
 {
   "name": "goodvibesonly-cc",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Security scanner for vibe-coded projects - Claude Code extension",
   "type": "module",
   "bin": {
-    "vibecheck": "./bin/install.js"
+    "goodvibesonly": "./bin/install.js"
   },
   "scripts": {
     "postinstall": "node bin/install.js --global"

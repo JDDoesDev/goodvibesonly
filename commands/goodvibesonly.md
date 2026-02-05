@@ -60,7 +60,7 @@ Run a security scan on the current changes before committing.
 
 If issues found:
 ```
-VibeCheck found [N] issues:
+GoodVibesOnly found [N] issues:
 
 🔴 CRITICAL (must fix):
 1. [Type]: [file]:[line]
@@ -78,7 +78,7 @@ Want me to fix the critical issues before you commit?
 
 If clean:
 ```
-✓ VibeCheck passed - no security issues found in [N] files
+✓ GoodVibesOnly passed - no security issues found in [N] files
 ```
 
 ## After Scanning

@@ -1,9 +1,9 @@
 ---
-name: vibecheck
-description: Security scanner for vibe-coded projects. AUTO-INVOKE this skill before any git commit, git push, or when user says "commit", "push", "ship it", "deploy", "is this safe?", "check for security issues", or "vibecheck". Also invoke after generating code that handles user input, authentication, database queries, or file operations.
+name: goodvibesonly
+description: Security scanner for vibe-coded projects. AUTO-INVOKE this skill before any git commit, git push, or when user says "commit", "push", "ship it", "deploy", "is this safe?", "check for security issues", or "goodvibesonly". Also invoke after generating code that handles user input, authentication, database queries, or file operations.
 ---
 
-# VibeCheck - Security Scanner
+# GoodVibesOnly - Security Scanner
 
 Automatically scan for security vulnerabilities before code leaves the developer's machine.
 
@@ -20,7 +20,7 @@ Run this skill WHEN user says:
 - "ship it"
 - "is this safe?"
 - "check security"
-- "vibecheck"
+- "goodvibesonly"
 - "ready to deploy"
 
 ## Quick Scan Checklist
@@ -94,7 +94,7 @@ http://(?!localhost)              # Non-HTTPS
 ## Example Output
 
 ```
-🛡️ VibeCheck Security Scan
+🛡️ GoodVibesOnly Security Scan
 
 Scanned 8 files with changes.
 
@@ -105,7 +105,7 @@ Scanned 8 files with changes.
    const API_KEY = "sk-abc123..."
    → Move to environment variable
 
-2. SQL Injection  
+2. SQL Injection
    src/db/users.js:42
    db.query("SELECT * FROM users WHERE id = " + id)
    → Use parameterized query: db.query("SELECT * FROM users WHERE id = ?", [id])

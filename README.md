@@ -1,10 +1,10 @@
-# VibeCheck
+# GoodVibesOnly
 
 **Security scanner for vibe-coded projects.** A Claude Code extension that automatically scans for vulnerabilities before you commit.
 
 ## How It Works
 
-VibeCheck uses Claude Code's hooks system to intercept git commands:
+GoodVibesOnly uses Claude Code's hooks system to intercept git commands:
 
 1. **Hooks into git commit/push** - Automatically runs before any `git commit` or `git push`
 2. **Scans changed files** - Checks for hardcoded secrets, injection vulnerabilities, XSS, and more
@@ -14,7 +14,7 @@ VibeCheck uses Claude Code's hooks system to intercept git commands:
 ```
 You: git commit -m "add user api"
 
-🛡️  VibeCheck Security Scan
+🛡️  GoodVibesOnly Security Scan
 
 🔴 CRITICAL - Must fix before commit:
 
@@ -47,8 +47,8 @@ npm install -g goodvibesonly-cc
 ### Option 3: Manual
 
 ```bash
-git clone https://github.com/YOURNAME/vibecheck.git
-cd vibecheck
+git clone https://github.com/YOURNAME/goodvibesonly.git
+cd goodvibesonly
 node bin/install.js --global
 ```
 
@@ -58,14 +58,14 @@ node bin/install.js --global
 node bin/install.js --global      # Install to ~/.claude/ (all projects)
 node bin/install.js --local       # Install to ./.claude/ (this project)
 node bin/install.js --no-hooks    # Skip hook installation (command/skill only)
-node bin/install.js --uninstall   # Remove VibeCheck
+node bin/install.js --uninstall   # Remove GoodVibesOnly
 ```
 
 ## Usage
 
 ### Automatic (via hooks)
 
-Just use git normally. VibeCheck runs automatically:
+Just use git normally. GoodVibesOnly runs automatically:
 
 ```bash
 git commit -m "message"    # Scans before commit
@@ -75,13 +75,13 @@ git push                   # Scans before push
 ### Manual Scan
 
 ```
-/vibecheck
+/goodvibesonly
 ```
 
 Or ask Claude:
 ```
 is this code safe?
-vibecheck this
+goodvibesonly this
 check for security issues
 ```
 
@@ -116,14 +116,14 @@ check for security issues
 ## Project Structure
 
 ```
-vibecheck/
+goodvibesonly/
 ├── bin/
 │   ├── install.js       # Installer (copies files + sets up hooks)
 │   └── scan.js          # Scanner script (runs via hooks)
 ├── commands/
-│   └── vibecheck.md     # /vibecheck slash command
+│   └── goodvibesonly.md # /goodvibesonly slash command
 ├── skills/
-│   └── vibecheck/
+│   └── goodvibesonly/
 │       └── SKILL.md     # Skill for Claude assistance
 ├── hooks/
 │   └── hooks.json       # Hook configuration template
@@ -140,7 +140,7 @@ vibecheck/
 
 ## Technical Details
 
-VibeCheck installs a `PreToolUse` hook that intercepts Bash commands. When it detects `git commit` or `git push`:
+GoodVibesOnly installs a `PreToolUse` hook that intercepts Bash commands. When it detects `git commit` or `git push`:
 
 1. Reads staged files via `git diff --cached --name-only`
 2. Scans each file against vulnerability patterns
@@ -156,7 +156,7 @@ The hook is configured in `~/.claude/settings.json`:
       "matcher": "Bash",
       "hooks": [{
         "type": "command",
-        "command": "node \"~/.claude/vibecheck/scan.js\""
+        "command": "node \"~/.claude/goodvibesonly/scan.js\""
       }]
     }]
   }
@@ -174,9 +174,9 @@ node bin/install.js --uninstall --local
 Or manually:
 
 ```bash
-rm -rf ~/.claude/commands/vibecheck.md
-rm -rf ~/.claude/skills/vibecheck/
-rm -rf ~/.claude/vibecheck/
+rm -rf ~/.claude/commands/goodvibesonly.md
+rm -rf ~/.claude/skills/goodvibesonly/
+rm -rf ~/.claude/goodvibesonly/
 # Then remove the hook from ~/.claude/settings.json
 ```
 
